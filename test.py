@@ -38,7 +38,7 @@ if __name__ == '__main__':
     # move the model to cuda
     pointnet.to(device)
     pointnet.eval()
-    test_ds       = ds.PointCloudData(dataset_test_path, start=120, end=150)
+    test_ds       = ds.PointCloudData(dataset_test_path, start=1490, end=1590)
     test_loader   = ds.DataLoader( dataset=test_ds,   batch_size=1, shuffle=False )
     total_correct_predictions = total_predictions = 0
 

@@ -7,6 +7,7 @@ import data_processing as ds
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
+batch_size=8
 
 def pointNetLoss(ouputs, labels, m3x3, m64x64, alpha=0.0001):
     criterion = torch.nn.NLLLoss()
@@ -30,7 +31,7 @@ def train(pointnet, optimizer, train_loader, val_loader=None, epochs=15, save=Tr
         for i, data in enumerate(train_loader, 0):
             inputs, labels = data
             print(inputs.shape,labels.shape)
-            if inputs.size(0) < 2:  # Skip batches with size less than 2
+            if inputs.size(0) < batch_size:  # Skip batches with size less than 2
                 continue
             inputs = inputs.to(device).float()
             labels = labels.to(device)
@@ -55,7 +56,7 @@ def train(pointnet, optimizer, train_loader, val_loader=None, epochs=15, save=Tr
         with torch.no_grad():
             for data in val_loader:
                 inputs, labels = data
-                if inputs.size(0) < 2:  # Skip batches with size less than 2
+                if inputs.size(0) < batch_size:  # Skip batches with size less than 2
                     continue
                 inputs = inputs.to(device).float()
                 labels = labels.to(device)
@@ -85,6 +86,6 @@ if __name__ == '__main__':
     train_ds  = ds.PointCloudData(dataset_path, start=0,   end=1043)
     val_ds    = ds.PointCloudData(dataset_path, start=1043, end=1490)
     # warning: batch_size needs to be at least 2
-    train_loader  = ds.DataLoader( dataset=train_ds,  batch_size=2, shuffle=True  )
-    val_loader    = ds.DataLoader( dataset=val_ds,    batch_size=2, shuffle=False )
+    train_loader  = ds.DataLoader( dataset=train_ds,  batch_size=batch_size, shuffle=True  )
+    val_loader    = ds.DataLoader( dataset=val_ds,    batch_size=batch_size, shuffle=False )
     train(pointnet, optimizer, train_loader, val_loader, save=True)
