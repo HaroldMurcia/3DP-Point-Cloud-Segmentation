@@ -95,7 +95,7 @@ class PointNet(nn.Module):
 
 
 class PointNetSeg(nn.Module):
-    def __init__(self, classes=3):
+    def __init__(self, classes=4):
         super().__init__()
         self.pointnet = PointNet()
         self.mlp1 = MLP_CONV(1088, 512)

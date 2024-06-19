@@ -12,7 +12,7 @@ import numpy as np
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
-labels = ds.labels
+#labels = ds.labels
 
 def compute_stats(true_labels, pred_labels):
   unk     = np.count_nonzero(true_labels == 0)
@@ -34,10 +34,11 @@ if __name__ == '__main__':
     model_path = os.path.join('', "pointnetmodel.yml")
     pointnet.load_state_dict(torch.load(model_path))
 
+    dataset_test_path = '/local/users/hfmurciamo/Data/SemanticKitti'
     # move the model to cuda
     pointnet.to(device)
     pointnet.eval()
-    test_ds   = ds.PointCloudData('dataset', start=120, end=150)
+    test_ds       = ds.PointCloudData(dataset_test_path, start=120, end=150)
     test_loader   = ds.DataLoader( dataset=test_ds,   batch_size=1, shuffle=False )
     total_correct_predictions = total_predictions = 0
 
@@ -53,7 +54,7 @@ if __name__ == '__main__':
         # visualize results
         remapped_pred = ds.remap_to_bgr(predicted[0].cpu().numpy(), ds.remap_color_scheme)
         np_pointcloud = inputs[0].cpu().numpy()
-        # visualize3DPointCloud(np_pointcloud, remapped_pred)
+        #ds.visualize3DPointCloud(np_pointcloud, remapped_pred)
 
         # compute statistics
         ground_truth_labels = labels.cpu()

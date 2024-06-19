@@ -32,7 +32,7 @@ min_dist *= min_dist
 size_float = 4
 size_small_int = 2
 
-dataset_path =  "dataset"
+dataset_path =  "/local/users/hfmurciamo/Data/SemanticKitti"
 
 
     
@@ -77,7 +77,7 @@ semantic_kitti_color_scheme = {
 label_remap = {
 0 :  0, # "unlabeled"
 1 :  0, # "outlier"
-10:  2, # "car"
+10:  3, # "car"
 11:  2, # "bicycle"
 13:  2, # "bus"
 15:  2, # "motorcycle"
@@ -112,9 +112,10 @@ label_remap = {
     }
 
 remap_color_scheme = [
-  [0, 0, 0],
-  [0, 255, 0],
-  [0, 0, 255]
+  [0, 0, 0],    # 0
+  [0, 255, 0],  # 1
+  [0, 0, 255],  # 2
+  [255,0,0]     # 3
 ]
 
 
