@@ -83,8 +83,8 @@ if __name__ == '__main__':
     pointnet.to(device)
     dataset_path = '/local/users/hfmurciamo/Data/SemanticKitti'
     optimizer = torch.optim.Adam(pointnet.parameters(), lr=0.005)
-    train_ds  = ds.PointCloudData(dataset_path, start=0,   end=1043)
-    val_ds    = ds.PointCloudData(dataset_path, start=1043, end=1490)
+    train_ds  = ds.PointCloudData(dataset_path, start=0,   end=2905)
+    val_ds    = ds.PointCloudData(dataset_path, start=2905, end=3632)
     # warning: batch_size needs to be at least 2
     train_loader  = ds.DataLoader( dataset=train_ds,  batch_size=batch_size, shuffle=True  )
     val_loader    = ds.DataLoader( dataset=val_ds,    batch_size=batch_size, shuffle=False )
